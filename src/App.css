@@ -41,3 +41,7 @@ button {
     border: 1px groove rgba(46, 72, 93, 0.5);
     outline: none;
 }
+footer  {
+    text-align: center;
+    font-size: 80%;
+}
