@@ -41,6 +41,14 @@ button {
     border: 1px groove rgba(46, 72, 93, 0.5);
     outline: none;
 }
+#timer-label {
+    margin-bottom: 5px;
+    font-size: 180%;
+}
+#time-left {
+    font-size: 140%;
+    margin-top: 0;
+}
 footer  {
     text-align: center;
     font-size: 80%;
