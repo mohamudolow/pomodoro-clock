@@ -13,12 +13,21 @@ const SetTimer = ({type, value}) => (
 </div>
 </div>);
 
+const Timer = ({ mode, time }) => (
+<div>
+<h2 id="timer-label">{mode === 'session' ? 'Session' : 'Break'}</h2>
+<p id="time-left">{time}</p>
+</div>
+);
+
 class App extends React.Component {
 constructor(props) {
 super(props);
 this.state = {
 breakValue: 5,
-sessionValue: 25
+sessionValue: 25,
+mode: 'session',
+time: 25
 }
 }
 
@@ -29,6 +38,9 @@ return (
 <div id="setting">
 <SetTimer type="break" value={this.state.breakValue} />
 <SetTimer type="session" value={this.state.sessionValue} />
+</div>
+<div><br />
+<Timer mode={this.state.mode} time={this.state.time} />
 </div>
 </div>
 );
