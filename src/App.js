@@ -9,7 +9,7 @@ const SetTimer = ({type, value}) => (
 <div id="setTimers-controls">
 <button id={`${type}-decrement`}>&darr;</button>&nbsp;
 <div id={`${type}-length`}>{value}</div>&nbsp;
-<button id={`${type}-increment`}>&uarr;</buttoqn>
+<button id={`${type}-increment`}>&uarr;</button>
 </div>
 </div>);
 
