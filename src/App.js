@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import moment from 'moment';
 
 const Header = () => <h1>Pomodoro Clock</h1>;
 
@@ -34,7 +35,7 @@ this.state = {
 breakValue: 5,
 sessionValue: 25,
 mode: 'session',
-time: 25,
+time: 25 * 60 * 1000,
 active: false
 }
 }
@@ -48,7 +49,7 @@ return (
 <SetTimer type="session" value={this.state.sessionValue} />
 </div><br /><br />
 <div>
-<Timer mode={this.state.mode} time={this.state.time} />
+<Timer mode={this.state.mode} time={moment(this.state.time).format('mm:ss')} />
 <Controls active={this.state.active} />
 </div>
 </div>
