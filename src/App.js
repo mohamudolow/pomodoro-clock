@@ -43,7 +43,7 @@ active: false
 render() {
 return (
 <div className="App">
-<Header />
+<Header /><br />
 <div id="setting">
 <SetTimer type="break" value={this.state.breakValue} />
 <SetTimer type="session" value={this.state.sessionValue} />
