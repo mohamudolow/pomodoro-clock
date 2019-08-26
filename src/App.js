@@ -20,6 +20,13 @@ const Timer = ({ mode, time }) => (
 </div>
 );
 
+const Controls = ({ active }) => (
+<div id="controls">
+<button id="start_stop">{active ? <span>&#10074;&#10074;</span> : <span>&#9658;</span>}</button>&nbsp;&nbsp;
+<button id="reset"><span>&#8634;</span></button>
+</div>
+);
+
 class App extends React.Component {
 constructor(props) {
 super(props);
@@ -27,7 +34,8 @@ this.state = {
 breakValue: 5,
 sessionValue: 25,
 mode: 'session',
-time: 25
+time: 25,
+active: false
 }
 }
 
@@ -38,9 +46,10 @@ return (
 <div id="setting">
 <SetTimer type="break" value={this.state.breakValue} />
 <SetTimer type="session" value={this.state.sessionValue} />
-</div>
-<div><br />
+</div><br /><br />
+<div>
 <Timer mode={this.state.mode} time={this.state.time} />
+<Controls active={this.state.active} />
 </div>
 </div>
 );
