@@ -4,13 +4,13 @@ import moment from 'moment';
 
 const Header = () => <h1>Pomodoro Clock</h1>;
 
-const SetTimer = ({type, value}) => (
+const SetTimer = ({type, value, handleClick}) => (
   <div>
   <h2 id={`${type}-label`}>{(`${type}` === 'session') ? 'Session ' : 'Break '}Length</h2>
 <div id="setTimers-controls">
-<button id={`${type}-decrement`}>&darr;</button>&nbsp;
+<button id={`${type}-decrement`} onClick={() => handleClick(false, `${type}Value`)}>&darr;</button>&nbsp;
 <div id={`${type}-length`}>{value}</div>&nbsp;
-<button id={`${type}-increment`}>&uarr;</button>
+<button id={`${type}-increment`} onClick={() => handleClick(true, `${type}Value`)}>&uarr;</button>
 </div>
 </div>);
 
@@ -40,13 +40,19 @@ active: false
 }
 }
 
+handleSetTimers = (inc, type) => (
+this.setState({
+[type] : this.state[type] + (inc ?  +1 : -1)
+})
+);
+
 render() {
 return (
 <div className="App">
 <Header /><br />
 <div id="setting">
-<SetTimer type="break" value={this.state.breakValue} />
-<SetTimer type="session" value={this.state.sessionValue} />
+<SetTimer type="break" value={this.state.breakValue} handleClick={this.handleSetTimers}/>
+<SetTimer type="session" value={this.state.sessionValue} handleClick={this.handleSetTimers} />
 </div><br /><br />
 <div>
 <Timer mode={this.state.mode} time={moment(this.state.time).format('mm:ss')} />
