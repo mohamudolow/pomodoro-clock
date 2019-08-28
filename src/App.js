@@ -21,10 +21,10 @@ const Timer = ({ mode, time }) => (
 </div>
 );
 
-const Controls = ({ active }) => (
+const Controls = ({ active, handleReset }) => (
 <div id="controls">
 <button id="start_stop">{active ? <span>&#10074;&#10074;</span> : <span>&#9658;</span>}</button>&nbsp;&nbsp;
-<button id="reset"><span>&#8634;</span></button>
+<button id="reset" onClick={handleReset}><span>&#8634;</span></button>
 </div>
 );
 
@@ -38,6 +38,14 @@ mode: 'session',
 time: 25 * 60 * 1000,
 active: false
 }
+}
+
+handleReset = () => {
+this.setState({
+breakValue: 5,
+sessionValue: 25,
+time: 25 * 60 * 1000
+})
 }
 
 handleSetTimers = (inc, type) => (
@@ -56,7 +64,7 @@ return (
 </div><br /><br />
 <div>
 <Timer mode={this.state.mode} time={moment(this.state.time).format('mm:ss')} />
-<Controls active={this.state.active} />
+<Controls active={this.state.active} handleReset={this.handleReset} />
 </div>
 </div>
 );
