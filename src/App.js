@@ -21,9 +21,9 @@ const Timer = ({ mode, time }) => (
 </div>
 );
 
-const Controls = ({ active, handleReset }) => (
+const Controls = ({ active, handleReset, handlePlayPause }) => (
 <div id="controls">
-<button id="start_stop">{active ? <span>&#10074;&#10074;</span> : <span>&#9658;</span>}</button>&nbsp;&nbsp;
+<button id="start_stop" onClick={handlePlayPause}>{active ? <span>&#10074;&#10074;</span> : <span>&#9658;</span>}</button>&nbsp;&nbsp;
 <button id="reset" onClick={handleReset}><span>&#8634;</span></button>
 </div>
 );
@@ -44,15 +44,21 @@ handleReset = () => {
 this.setState({
 breakValue: 5,
 sessionValue: 25,
-time: 25 * 60 * 1000
+time: 25 * 60 * 1000,
+active: false
 })
+clearInterval(this.pomodro)
 }
+
+handlePlayPause = () => (
+this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000, active: true}), 1000)
+);
 
 handleSetTimers = (inc, type) => (
 this.setState({
 [type] : this.state[type] + (inc ?  +1 : -1)
 })
-);
+)
 
 render() {
 return (
@@ -64,7 +70,7 @@ return (
 </div><br /><br />
 <div>
 <Timer mode={this.state.mode} time={moment(this.state.time).format('mm:ss')} />
-<Controls active={this.state.active} handleReset={this.handleReset} />
+<Controls active={this.state.active} handleReset={this.handleReset} handlePlayPause={this.handlePlayPause} />
 </div>
 </div>
 );
