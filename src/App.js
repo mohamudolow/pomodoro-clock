@@ -55,9 +55,7 @@ this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000, ac
 );
 
 handleSetTimers = (inc, type) => (
-this.setState({
-[type] : this.state[type] + (inc ?  +1 : -1)
-})
+(this.state[type] === 60 && inc) ? 60 : (this.state[type] === 1 && !inc) ? 1 : this.setState({[type] : this.state[type] + (inc ?  +1 : -1)})
 )
 
 render() {
