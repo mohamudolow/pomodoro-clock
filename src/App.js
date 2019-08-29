@@ -36,7 +36,8 @@ breakValue: 5,
 sessionValue: 25,
 mode: 'session',
 time: 25 * 60 * 1000,
-active: false
+active: false,
+touched: false
 }
 }
 
@@ -45,14 +46,16 @@ this.setState({
 breakValue: 5,
 sessionValue: 25,
 time: 25 * 60 * 1000,
-active: false
+active: false,
+touched: false
 })
 clearInterval(this.pomodro)
 }
 
 handlePlayPause = () => (
-(this.state.active) ? (clearInterval(this.pomodro), this.setState({active: false})) :
-(this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000}), 1000), this.setState({active: true}))
+(this.state.active) ?(clearInterval(this.pomodro), this.setState({active: false})) : (this.state.touched) ? 
+(this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000}), 1000), this.setState({active: true})) : 
+(this.setState({time: this.state.sessionValue * 60 * 1000, active: true, touched: true}, () => this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000}), 1000)))
 );
 
 handleSetTimers = (inc, type) => (
