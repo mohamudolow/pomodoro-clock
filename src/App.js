@@ -51,7 +51,8 @@ clearInterval(this.pomodro)
 }
 
 handlePlayPause = () => (
-this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000, active: true}), 1000)
+(this.state.active) ? (clearInterval(this.pomodro), this.setState({active: false})) :
+(this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000}), 1000), this.setState({active: true}))
 );
 
 handleSetTimers = (inc, type) => (
