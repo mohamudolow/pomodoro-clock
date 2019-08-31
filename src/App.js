@@ -32,8 +32,8 @@ class App extends React.Component {
 constructor(props) {
 super(props);
 this.state = {
-breakValue: 0.1,
-sessionValue: 0.1,
+breakValue: 5,
+sessionValue: 25,
 mode: 'session',
 time: 25 * 60 * 1000,
 active: false,
