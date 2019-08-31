@@ -32,8 +32,8 @@ class App extends React.Component {
 constructor(props) {
 super(props);
 this.state = {
-breakValue: 5,
-sessionValue: 25,
+breakValue: 0.1,
+sessionValue: 0.1,
 mode: 'session',
 time: 25 * 60 * 1000,
 active: false,
@@ -41,10 +41,20 @@ touched: false
 }
 }
 
+componentDidUpdate(prevProps, prevState) {
+if (prevState.time === 0 && prevState.mode === 'session') {
+this.setState({time: this.state.breakValue * 60 * 1000, mode: 'break'})
+} 
+if (prevState.time === 0 && prevState.mode === 'break') {
+this.setState({time: this.state.sessionValue * 60 * 1000, mode: 'session'})
+}
+}
+
 handleReset = () => {
 this.setState({
 breakValue: 5,
 sessionValue: 25,
+mode: 'session',
 time: 25 * 60 * 1000,
 active: false,
 touched: false
