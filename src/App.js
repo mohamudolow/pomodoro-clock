@@ -44,9 +44,11 @@ touched: false
 componentDidUpdate(prevProps, prevState) {
 if (prevState.time === 0 && prevState.mode === 'session') {
 this.setState({time: this.state.breakValue * 60 * 1000, mode: 'break'})
+this.audio.play()
 } 
 if (prevState.time === 0 && prevState.mode === 'break') {
 this.setState({time: this.state.sessionValue * 60 * 1000, mode: 'session'})
+this.audio.play()
 }
 }
 
@@ -60,6 +62,8 @@ active: false,
 touched: false
 })
 clearInterval(this.pomodro)
+this.audio.pause()
+this.audio.currentTime = 0
 }
 
 handlePlayPause = () => (
@@ -84,6 +88,7 @@ return (
 <Timer mode={this.state.mode} time={moment(this.state.time).format('mm:ss')} />
 <Controls active={this.state.active} handleReset={this.handleReset} handlePlayPause={this.handlePlayPause} />
 </div>
+<audio id='beep' src={process.env.PUBLIC_URL + '/service-bell.wav'} ref={el=> this.audio = el}></audio>
 </div>
 );
 }
