@@ -52,6 +52,16 @@ this.audio.play()
 }
 }
 
+handleSetTimers = (inc, type) => (
+(this.state[type] === 60 && inc) ? 60 : (this.state[type] === 1 && !inc) ? 1 : this.setState({[type] : this.state[type] + (inc ?  +1 : -1)})
+)
+
+handlePlayPause = () => (
+(this.state.active) ?(clearInterval(this.pomodro), this.setState({active: false})) : (this.state.touched) ? 
+(this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000}), 1000), this.setState({active: true})) : 
+(this.setState({time: this.state.sessionValue * 60 * 1000, active: true, touched: true}, () => this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000}), 1000)))
+);
+
 handleReset = () => {
 this.setState({
 breakValue: 5,
@@ -66,29 +76,23 @@ this.audio.pause()
 this.audio.currentTime = 0
 }
 
-handlePlayPause = () => (
-(this.state.active) ?(clearInterval(this.pomodro), this.setState({active: false})) : (this.state.touched) ? 
-(this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000}), 1000), this.setState({active: true})) : 
-(this.setState({time: this.state.sessionValue * 60 * 1000, active: true, touched: true}, () => this.pomodro = setInterval(() => this.setState({time: this.state.time - 1000}), 1000)))
-);
-
-handleSetTimers = (inc, type) => (
-(this.state[type] === 60 && inc) ? 60 : (this.state[type] === 1 && !inc) ? 1 : this.setState({[type] : this.state[type] + (inc ?  +1 : -1)})
-)
-
 render() {
 return (
 <div className="App">
+
 <Header /><br />
+
 <div id="setting">
 <SetTimer type="break" value={this.state.breakValue} handleClick={this.handleSetTimers}/>
 <SetTimer type="session" value={this.state.sessionValue} handleClick={this.handleSetTimers} />
 </div><br /><br />
-<div>
+
 <Timer mode={this.state.mode} time={moment(this.state.time).format('mm:ss')} />
+
 <Controls active={this.state.active} handleReset={this.handleReset} handlePlayPause={this.handlePlayPause} />
-</div>
+
 <audio id='beep' src={process.env.PUBLIC_URL + '/service-bell.wav'} ref={el=> this.audio = el}></audio>
+
 </div>
 );
 }
